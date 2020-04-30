@@ -66,8 +66,29 @@ Usmpl::Usmpl()
 // Method to import a DLL.
 bool Usmpl::importDLL()
 {
-	//FString filePath = FGenericPlatformMisc::GetEnvironmentVariable("CSMPL_LIB_PATH");
-	FString filePath = "C:\\Users\\nsaini\\Desktop\\projects\\SMPL.jl\\build\\csmpl.dll";
+
+	FString filePath;
+	for (uint32 Length = 128;;)
+	{
+		TArray<TCHAR>& CharArray = filePath.GetCharArray();
+		CharArray.SetNumUninitialized(Length);
+
+		Length = ::GetEnvironmentVariableW(TEXT("CSMPL_LIB_PATH"), CharArray.GetData(), CharArray.Num());
+		if (Length == 0)
+		{
+			filePath.Reset();
+			UE_LOG(LogTemp, Error, TEXT("CSMPL_LIB_PATH is not set"));
+			break;
+		}
+		else if (Length < (uint32)CharArray.Num())
+		{
+			CharArray.SetNum(Length + 1);
+			break;
+		}
+	}
+	
+
+	//FString filePath = "C:\\Users\\nsaini\\Desktop\\projects\\SMPL.jl\\build\\csmpl.dll";
 
 	if (FPaths::FileExists(*filePath))
 	{

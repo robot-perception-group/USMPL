@@ -20,9 +20,27 @@ ASMPLActor::ASMPLActor()
 	std::fill_n(trans_buf, 3, 0);
 	std::fill_n(verts_buf, 6890 * 3, 0);
 
-	//FString csmpl_lib_path = FGenericPlatformMisc::GetEnvironmentVariable("CSMPL_LIB_PATH");
-	jl_init_with_image(NULL, R"(C:\Users\nsaini\Desktop\projects\SMPL.jl\build\csmpl.dll)");
-	//jl_init_with_image(NULL, TCHAR_TO_ANSI(*csmpl_lib_path));
+	FString csmpl_lib_path;
+	for (uint32 Length = 128;;)
+	{
+		TArray<TCHAR>& CharArray = csmpl_lib_path.GetCharArray();
+		CharArray.SetNumUninitialized(Length);
+
+		Length = ::GetEnvironmentVariableW(TEXT("CSMPL_LIB_PATH"), CharArray.GetData(), CharArray.Num());
+		if (Length == 0)
+		{
+			csmpl_lib_path.Reset();
+			UE_LOG(LogTemp, Error, TEXT("CSMPL_LIB_PATH is not set"));
+			break;
+		}
+		else if (Length < (uint32)CharArray.Num())
+		{
+			CharArray.SetNum(Length + 1);
+			break;
+		}
+	}
+	//jl_init_with_image(NULL, R"(C:\Users\nsaini\Desktop\projects\SMPL.jl\build\csmpl.dll)");
+	jl_init_with_image(NULL, TCHAR_TO_ANSI(*csmpl_lib_path));
 	
 	jl_value_t* jl_fl32_1_arr = jl_apply_array_type((jl_value_t*)jl_float32_type, 1);
 	jl_value_t* jl_fl32_2_arr = jl_apply_array_type((jl_value_t*)jl_float32_type, 2);
