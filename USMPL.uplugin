@@ -2,7 +2,7 @@
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.0",
-	"FriendlyName": "SMPLPlugin",
+	"FriendlyName": "USMPL",
 	"Description": "",
 	"Category": "Other",
 	"CreatedBy": "Nitin Saini",
@@ -15,7 +15,7 @@
 	"Installed": false,
 	"Modules": [
 		{
-			"Name": "SMPLPlugin",
+			"Name": "USMPL",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}

@@ -11,7 +11,7 @@ typedef jl_array_t*(*_CSMPL_J_regressor)(jl_array_t*);
 typedef jl_array_t*(*_CSMPL_parents)(jl_array_t*);
 typedef jl_array_t*(*_CSMPL_lbs_weights)(jl_array_t*);
 typedef jl_array_t*(*_CSMPL_f)(jl_array_t*);
-typedef jl_array_t*(*_CSMPL_uv)(jl_array_t*);
+//typedef jl_array_t*(*_CSMPL_uv)(jl_array_t*);
 typedef jl_array_t*(*_CSMPL_LBS)(jl_value_t*,
 	jl_value_t*,
 	jl_value_t*,
@@ -38,7 +38,7 @@ _CSMPL_parents				m_CSMPL_parents;
 _CSMPL_lbs_weights			m_CSMPL_lbs_weights;
 _CSMPL_f					m_CSMPL_f;
 _CSMPL_LBS					m_CSMPL_LBS;
-_CSMPL_uv					m_CSMPL_uv;
+//_CSMPL_uv					m_CSMPL_uv;
 
 void *v_dllHandle;
 
@@ -66,7 +66,8 @@ Usmpl::Usmpl()
 // Method to import a DLL.
 bool Usmpl::importDLL()
 {
-	FString filePath = FGenericPlatformMisc::GetEnvironmentVariable("CSMPL_LIB_PATH");
+	//FString filePath = FGenericPlatformMisc::GetEnvironmentVariable("CSMPL_LIB_PATH");
+	FString filePath = "C:\\Users\\nsaini\\Documents\\Unreal Projects\\SMPLPluginTest_18\\Binaries\\Win64\\csmpl.dll";
 
 	if (FPaths::FileExists(*filePath))
 	{
@@ -198,6 +199,7 @@ bool Usmpl::importMethodCSMPL_f()
 	}
 	return false;	// Return an error.
 }
+/*
 bool Usmpl::importMethodCSMPL_uv()
 {
 	if (v_dllHandle != NULL)
@@ -211,7 +213,7 @@ bool Usmpl::importMethodCSMPL_uv()
 		}
 	}
 	return false;	// Return an error.
-}
+}*/
 bool Usmpl::importMethodCSMPL_LBS()
 {
 	if (v_dllHandle != NULL)
@@ -251,6 +253,7 @@ jl_array_t*  Usmpl::CSMPL_v_template(jl_array_t* v_template)
 	//}
 	//return false;	// Return an error.
 }
+/*
 jl_array_t*  Usmpl::CSMPL_uv(jl_array_t* uv)
 {
 	//if (m_CSMPL_v_template != NULL)
@@ -259,7 +262,7 @@ jl_array_t*  Usmpl::CSMPL_uv(jl_array_t* uv)
 	return u;
 	//}
 	//return false;	// Return an error.
-}
+}*/
 jl_array_t*  Usmpl::CSMPL_shapedirs(jl_array_t* shapedir)
 {
 	//if (m_CSMPL != NULL)
@@ -379,7 +382,7 @@ void Usmpl::freeDLL()
 		m_CSMPL_lbs_weights = NULL;
 		m_CSMPL_f = NULL;
 		m_CSMPL_LBS = NULL;
-		m_CSMPL_uv = NULL;
+		//m_CSMPL_uv = NULL;
 		FPlatformProcess::FreeDllHandle(v_dllHandle);
 		v_dllHandle = NULL;
 	}

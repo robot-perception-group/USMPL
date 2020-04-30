@@ -37,14 +37,16 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FString PoseTopicName;
+		
 	UProceduralMeshComponent* SmplMesh;
+
 
 	/* The vertices of the mesh */
 	TArray<FVector> Vertices;
 
 	/* The UV values for Mesh */
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	TArray<FVector2D> UV;
 
 	/* The triangles of the mesh */
@@ -101,7 +103,6 @@ public:
 	static void jl_atexit_hook(int);*/
 	//virtual void FinishDestroy();
 
-	UPROPERTY()
 	class UTopic *PoseTopic;
 
 	void SubscribeCallbackImpl(TSharedPtr<class FROSBaseMsg> msg);

@@ -20,9 +20,9 @@ ASMPLActor::ASMPLActor()
 	std::fill_n(trans_buf, 3, 0);
 	std::fill_n(verts_buf, 6890 * 3, 0);
 
-	FString csmpl_lib_path = FGenericPlatformMisc::GetEnvironmentVariable("CSMPL_LIB_PATH");
-	//jl_init_with_image(NULL, "D:\\projects\\SMPLPlugin_18\\Binaries\\Win64\\SMPLMod.dll");
-	jl_init_with_image(NULL, TCHAR_TO_ANSI(*csmpl_lib_path));
+	//FString csmpl_lib_path = FGenericPlatformMisc::GetEnvironmentVariable("CSMPL_LIB_PATH");
+	jl_init_with_image(NULL, "C:\\Users\\nsaini\\Documents\\Unreal Projects\\SMPLPluginTest_18\\Binaries\\Win64\\csmpl.dll");
+	//jl_init_with_image(NULL, TCHAR_TO_ANSI(*csmpl_lib_path));
 	
 	jl_value_t* jl_fl32_1_arr = jl_apply_array_type((jl_value_t*)jl_float32_type, 1);
 	jl_value_t* jl_fl32_2_arr = jl_apply_array_type((jl_value_t*)jl_float32_type, 2);
@@ -31,7 +31,7 @@ ASMPLActor::ASMPLActor()
 	jl_value_t* jl_uint32_1_arr = jl_apply_array_type((jl_value_t*)jl_uint32_type, 1);
 
 	v_template = jl_ptr_to_array(jl_fl32_2_arr, v_template_buf, (jl_value_t*)jl_eval_string("(6890,3)"), 0);
-	uv = jl_ptr_to_array(jl_fl32_2_arr, uv_buf, (jl_value_t*)jl_eval_string("(6890,2)"), 0);
+	//uv = jl_ptr_to_array(jl_fl32_2_arr, uv_buf, (jl_value_t*)jl_eval_string("(6890,2)"), 0);
 	shapedirs = jl_ptr_to_array(jl_fl32_3_arr, shapedirs_buf, (jl_value_t*)jl_eval_string("(6890,3,10)"), 0);
 	posedirs = jl_ptr_to_array(jl_fl32_2_arr, posedirs_buf, (jl_value_t*)jl_eval_string("(207,20670)"), 0);
 	J_regressor = jl_ptr_to_array(jl_fl32_2_arr, J_regressor_buf, (jl_value_t*)jl_eval_string("(24,6890)"), 0);
@@ -48,7 +48,7 @@ ASMPLActor::ASMPLActor()
 	bool dll = Usmpl::importDLL();
 	bool csm = Usmpl::importMethodCSMPL();
 	bool cvt = Usmpl::importMethodCSMPL_v_template();
-	bool cuv = Usmpl::importMethodCSMPL_uv();
+	//bool cuv = Usmpl::importMethodCSMPL_uv();
 	bool cs = Usmpl::importMethodCSMPL_shapedirs();
 	bool cp = Usmpl::importMethodCSMPL_posedirs();
 	bool cj = Usmpl::importMethodCSMPL_J_regressor();
@@ -59,7 +59,7 @@ ASMPLActor::ASMPLActor()
 
 	jl_value_t* smpl = Usmpl::CSMPL();
 	jl_array_t* smpl_v_template = Usmpl::CSMPL_v_template(v_template);
-	jl_array_t* smpl_uv = Usmpl::CSMPL_uv(uv);
+	//jl_array_t* smpl_uv = Usmpl::CSMPL_uv(uv);
 	jl_array_t* smpl_shapedirs = Usmpl::CSMPL_shapedirs(shapedirs);
 	jl_array_t* smpl_posedirs = Usmpl::CSMPL_posedirs(posedirs);
 	jl_array_t* smpl_J_regressor = Usmpl::CSMPL_J_regressor(J_regressor);
@@ -88,10 +88,10 @@ ASMPLActor::ASMPLActor()
 	double end = FPlatformTime::Seconds();
 	UE_LOG(LogTemp, Warning, TEXT("SMPL LBS executed in %f seconds."), end - start);
 
-	for (int i = 0; i < 6890; i++)
+	/*for (int i = 0; i < 6890; i++)
 	{
 		UV.Add(FVector2D(uv_buf[i],uv_buf[6890+i]));
-	}
+	}*/
 
 	GenerateSMPLMesh();
 
@@ -127,7 +127,7 @@ void ASMPLActor::BeginPlay()
 
 	PoseTopic = NewObject<UTopic>(UTopic::StaticClass());
 	UROSIntegrationGameInstance* rosinst = Cast<UROSIntegrationGameInstance>(GetGameInstance());
-	PoseTopic->Init(rosinst->ROSIntegrationCore, TEXT("/smpl_pose"), TEXT("std_msgs/Float32MultiArray"));
+	PoseTopic->Init(rosinst->ROSIntegrationCore, PoseTopicName, TEXT("std_msgs/Float32MultiArray"));
 
 	std::function<void(TSharedPtr<FROSBaseMsg>)> SubscribeCallback = std::bind(&ASMPLActor::SubscribeCallbackImpl, this, std::placeholders::_1);
 	PoseTopic->Subscribe(SubscribeCallback);
