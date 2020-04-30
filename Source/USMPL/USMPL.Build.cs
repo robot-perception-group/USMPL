@@ -9,8 +9,11 @@ public class USMPL: ModuleRules
 	public USMPL(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-		
-		PublicIncludePaths.AddRange(
+
+        bEnableUndefinedIdentifierWarnings = false;
+
+
+        PublicIncludePaths.AddRange(
 			new string[] {
 				"USMPL/Public"
 				// ... add public include paths required here ...
@@ -66,5 +69,7 @@ public class USMPL: ModuleRules
 				// ... add any modules that your module loads dynamically here ...
 			}
 			);
+
+
 	}
 }
