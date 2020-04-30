@@ -67,7 +67,7 @@ Usmpl::Usmpl()
 bool Usmpl::importDLL()
 {
 	//FString filePath = FGenericPlatformMisc::GetEnvironmentVariable("CSMPL_LIB_PATH");
-	FString filePath = "C:\\Users\\nsaini\\Documents\\Unreal Projects\\SMPLPluginTest_18\\Binaries\\Win64\\csmpl.dll";
+	FString filePath = "C:\\Users\\nsaini\\Desktop\\projects\\SMPL.jl\\build\\csmpl.dll";
 
 	if (FPaths::FileExists(*filePath))
 	{

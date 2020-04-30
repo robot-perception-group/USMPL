@@ -38,12 +38,12 @@ public:
 	static bool importMethodCSMPL_lbs_weights();
 	static bool importMethodCSMPL_f();
 	static bool importMethodCSMPL_LBS();
-	static bool importMethodCSMPL_uv();
+	//static bool importMethodCSMPL_uv();
 
 	// Module functions
 	static jl_value_t* CSMPL();
 	static jl_array_t* CSMPL_v_template(jl_array_t*);
-	static jl_array_t* CSMPL_uv(jl_array_t*);
+	//static jl_array_t* CSMPL_uv(jl_array_t*);
 	static jl_array_t* CSMPL_shapedirs(jl_array_t*);
 	static jl_array_t* CSMPL_posedirs(jl_array_t*);
 	static jl_array_t* CSMPL_J_regressor(jl_array_t*);

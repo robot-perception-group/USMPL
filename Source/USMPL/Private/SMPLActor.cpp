@@ -21,7 +21,7 @@ ASMPLActor::ASMPLActor()
 	std::fill_n(verts_buf, 6890 * 3, 0);
 
 	//FString csmpl_lib_path = FGenericPlatformMisc::GetEnvironmentVariable("CSMPL_LIB_PATH");
-	jl_init_with_image(NULL, "C:\\Users\\nsaini\\Documents\\Unreal Projects\\SMPLPluginTest_18\\Binaries\\Win64\\csmpl.dll");
+	jl_init_with_image(NULL, R"(C:\Users\nsaini\Desktop\projects\SMPL.jl\build\csmpl.dll)");
 	//jl_init_with_image(NULL, TCHAR_TO_ANSI(*csmpl_lib_path));
 	
 	jl_value_t* jl_fl32_1_arr = jl_apply_array_type((jl_value_t*)jl_float32_type, 1);
