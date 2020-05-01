@@ -41,8 +41,8 @@ git clone https://github.com/nitin-ppnp/USMPL.git
 7. **Configure game for ROS**: Follow the "Setting up the plugin" instructions of ROSIntegration plugin. Basically, the `GameInstance` should be changed to `ROSIntegrationGameInstance`.
 8. **Spawn the SMPL**: Drag the SMPLActor class in the viewport to create a SMPL Instance.
 
-![](Resources/SMPLClass.png)
+![](Resources/SMPLClass.png?raw=true)
 
 9. **Set topic name**: Set the ROS topic name which would cotain the pose message. If you select the SMPLActor instance in the viewport, the PoseTopicName field would appear on the right side (marked in red).
 
-![](Resources/PoseTopicName.png)
+![](Resources/PoseTopicName.png?raw=true)
