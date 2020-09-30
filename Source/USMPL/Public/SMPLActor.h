@@ -102,8 +102,8 @@ public:
 	static jl_array_t* CSMPL(jl_array_t*);
 	static void jl_atexit_hook(int);*/
 	//virtual void FinishDestroy();
-
-	class UTopic *PoseTopic;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UTopic *PoseTopic;
 
 	void SubscribeCallbackImpl(TSharedPtr<class FROSBaseMsg> msg);
 	
