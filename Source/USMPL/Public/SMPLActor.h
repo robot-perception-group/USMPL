@@ -39,8 +39,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString PoseTopicName;
-		
-	UProceduralMeshComponent* SmplMesh;
+	
+	UPROPERTY(EditAnywhere)
+		UProceduralMeshComponent* SmplMesh;
 
 
 	/* The vertices of the mesh */
